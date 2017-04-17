@@ -1,0 +1,19 @@
+{
+    "remotePath": "public_html/s/",
+    "host": "107.180.58.63",
+    "username": "ricky1",
+    "password": "Editron123@",
+    "port": 21,
+    "secure": false,
+    "protocol": "ftp",
+    "uploadOnSave": false,
+    "passive": false,
+    "debug": true,
+    "privateKeyPath": null,
+    "passphrase": null,
+    "ignore": [
+        "\\.vscode",
+        "\\.git",
+        "\\.DS_Store"
+    ]
+}
