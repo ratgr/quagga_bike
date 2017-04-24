@@ -9,7 +9,10 @@
         protected $conn;
         
         public static function GetDB(){
-            $conn = new mysqli(self::$servername, self::$username, self::$password, self::$database);
+            $env = (include_once "../.env.php")->database;
+
+
+            $conn = new mysqli($env->$servername, $env->$username, $env->$password, $env->$database);
             if ($conn->connect_error) {
                 throw new Exception("Failed to Connect to DataBase::" .  $conn->connect_error);  
             } 
