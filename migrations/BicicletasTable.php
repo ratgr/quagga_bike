@@ -18,7 +18,7 @@ class BicicletaTable extends MigrationBase{
 	
 	public function populate(){
 		$conn = $this->conn;
-		echo "inserting start bike";
+		echo "inserting start bike" . PHP_EOL;
 		$conn->query(
                 "INSERT INTO `bicicletas` (`id`, `telefono`, `serial`, `usuario`) 
                 VALUES (1, '', '', 1)");

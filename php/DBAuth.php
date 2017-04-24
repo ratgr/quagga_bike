@@ -5,12 +5,10 @@ class DBAuth{
 	protected $conn;
 	
 	
-	public static function GetDB(){
-		
-		$env = (include_once __DIR__ . "/../config.php")->database;
-		
-		
-		
+	public static function GetDB(){	
+       
+		$env = (include __DIR__ . "/../config.php")->database;
+
 		$conn = new mysqli($env->servername, $env->username, $env->password, $env->database);
 		
 		if ($conn->connect_error) {

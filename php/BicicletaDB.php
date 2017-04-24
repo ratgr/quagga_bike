@@ -100,6 +100,13 @@ class BicicletaDB extends DBAuth{
         if(!$stmt->execute()) return false;
         return true;
     }
+    public function addGPS($id, $date, $lat, $lon){
+        $conn = $this->conn;
+        $stmt = $conn->prepare("INSERT INTO coordinates Values (?, ?, ?, ?");
+        $stmt->bind_param("idds", $id, $lat, $lon, $date);
+        if(!$stmt->execute()) return false;
+        return true;
+    }
 
     public function getSensor($start){
         $conn = $this->conn;

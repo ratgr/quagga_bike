@@ -18,10 +18,10 @@ abstract class MigrationBase extends DBAuth{
             //si se encuentra en la lista hacemos un update
             $stmt->bind_result($res_version);
             //si no se logra hacer el update hacemos drop y luego subimos
+            print "trying to update the database " . $this->TableName().PHP_EOL;
             if(!$this->update($res_version));
             {
-                $this->down();
-                $this->up();
+               $this->prepare_up();
             }     
         }
         
@@ -35,8 +35,10 @@ abstract class MigrationBase extends DBAuth{
     }
 
     private function prepare_up(){
+        print "droping the database " . $this->TableName().PHP_EOL;
         $this->down();
-         $this->up();
+        print "Creating the database " . $this->TableName().PHP_EOL;
+        $this->up();
     }
 
     protected function initialize_migration_table(){
