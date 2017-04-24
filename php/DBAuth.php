@@ -6,8 +6,8 @@ class DBAuth{
 	
 	
 	public static function GetDB(){	
-       
-		$env = (include __DIR__ . "/../config.php")->database;
+        $config = include __DIR__ . "/../config.php";
+		$env = $config->database;
 
 		$conn = new mysqli($env->servername, $env->username, $env->password, $env->database);
 		
