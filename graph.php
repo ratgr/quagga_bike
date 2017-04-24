@@ -14,7 +14,4 @@ $response_fn = function() use ($INPUT){
     return ["error" => false, "points" => $points];
 };
 
-$response = $response_fn();
-
-echo json_encode($response);
-
+echo json_encode($response_fn());

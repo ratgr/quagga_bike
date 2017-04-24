@@ -14,6 +14,7 @@
        
         if($user != false){
             $_SESSION["username"] = $username;
+            $_SESSION["user_id"] = $user["id"];
             $response["username"] = $username;
             
         }else{
@@ -27,5 +28,3 @@
         $response["error_msg"] = "Required parameters email or password is missing!"; 
     }
     echo json_encode($response);
-
-?>

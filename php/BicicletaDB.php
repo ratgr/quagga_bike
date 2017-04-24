@@ -87,6 +87,11 @@ class BicicletaDB extends DBAuth{
         }
     }
 
+    public function getAlert($user_id, $start){
+        $conn = $this->conn;
+        $stmt = $conn->prepare("SELECT NOW(), text, id, time_stamp FROM alerts WHERE user_id = ? AND time_stamp > ?");
+        $stmt->bind_param("is", $user_id, $start);
+    }
     public function setSensor($array)
     {
         $conn = $this->conn;

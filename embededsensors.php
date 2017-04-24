@@ -11,7 +11,7 @@
     if($INPUT->contains('acc') && $INPUT->contains('gyro')){
         $acc = $INPUT->get('acc');
         $gyro = $INPUT->get('gyro');
-        
+            
         $sensor = array_merge($acc, $gyro);
         //var_dump( $sensor);
         $res = $db->setSensor($sensor);
