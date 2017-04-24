@@ -1,8 +1,6 @@
 <?php
 require_once __DIR__ . "/../php/MigrationBase.php";
 
-
-
 //php -r "(require_once 'BicicletasTable.php')->migrate();"
 class CoordinatesTable extends MigrationBase{
 	

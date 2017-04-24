@@ -3,7 +3,6 @@ require_once "DBAuth.php";
 
 abstract class MigrationBase extends DBAuth{
 	
-  
 
     public function migrate(){
         $conn = $this->conn;
