@@ -22,19 +22,24 @@ $response = function() use ($INPUT){
     if(!$INPUT->contains('ID')) return error("missing parameter 'ID'");
     if(!$INPUT->contains('GPS')) return error("missing parameter 'GPS'");
     $db = new BicicletaDB();
-    return success(["value" => ParseGPS($INPUT->get("ID"),$INPUT->get("GPS"))]);
+    return success(["ParseGPS" => ParseGPS($INPUT->get("ID"),$INPUT->get("GPS"))]);
 };
 
 echo json_encode($response());
 
 function ParseGPS($id, $gps){
-    $array = explode($gps,",");
+    try {
+        $array = explode($gps,",");
     //create the date
     $date = DateTime::createFromFormat("DDMMYYHHmmss",$array[9] . $array[1])->format(DateTime::ATOM);
     $lat = ($array[4]=="N" ? 1:-1) * (float)ltrim($array[3]);
     $lon = ($array[6]=="E" ? 1:-1) * (float)ltrim($array[5]);
     $db = new BicicletaDB();
     return $db->addGPS($id,$date,$lat,$lon);
+    }
+    catch(Exception $e){
+        return json_encode(["error"=> true, "exception_message" => $e->getMessage(), "error_msg" => "failded to Parse GPS" ]);
+    }
 }
 
 
@@ -54,24 +59,18 @@ function JSON_error_string(){
      switch(json_last_error()) {
         case JSON_ERROR_NONE:
            return 'JSON_ERROR_NONE';
-        break;
         case JSON_ERROR_DEPTH:
-            echo 'JSON_ERROR_DEPTH';
-        break;
+            return 'JSON_ERROR_DEPTH';
         case JSON_ERROR_STATE_MISMATCH:
-            echo 'JSON_ERROR_STATE_MISMATCH';
-        break;
+            return 'JSON_ERROR_STATE_MISMATCH';
         case JSON_ERROR_CTRL_CHAR:
-            echo 'JSON_ERROR_CTRL_CHAR';
-        break;
+            return 'JSON_ERROR_CTRL_CHAR';
         case JSON_ERROR_SYNTAX:
-            echo 'JSON_ERROR_SYNTAX';
-        break;
+            return 'JSON_ERROR_SYNTAX';
         case JSON_ERROR_UTF8:
-            echo 'JSON_ERROR_UTF8';
-        break;
+           return 'JSON_ERROR_UTF8';
         default:
-            echo 'JSON_ERROR_UNKNOWN';
-        break;
+            return 'JSON_ERROR_UNKNOWN';
+
     }
 }
