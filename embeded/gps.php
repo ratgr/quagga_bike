@@ -33,11 +33,12 @@ function ParseGPS($id, $gps){
     //create the date
     if(count($array) < 10) return ["error"=> true, "error_msg" => "Bad GPS RMC code", "array_count" => count($array), "gpscode" => $gps ];
     if($array[9] == "" ||$array[3] == "" || $array[5] == "" )  return ["error"=> true,  "error_msg" => "Empty RMC code" ];
-     echo "si tiene datos";
+     echo "si tiene datos ";
     $date = DateTime::createFromFormat("dmyHis",$array[9] . $array[1])->format(DateTime::ATOM);
+    echo "recupere fecha ";
     $lat = ($array[4]=="N" ? 1:-1) * (float)ltrim($array[3],"0");
     $lon = ($array[6]=="E" ? 1:-1) * (float)ltrim($array[5],"0");
-    echo "llegue aqui";
+    echo "llegue aqui\n\r";
     $db = new BicicletaDB();
         return $db->addGPS($id,$date,$lat,$lon);
     }
