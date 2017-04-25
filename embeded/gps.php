@@ -40,7 +40,10 @@ function ParseGPS($id, $gps){
     $lon = ($array[6]=="E" ? 1:-1) * (float)ltrim($array[5],"0");
     //echo "llegue aqui\n\r";
     $db = new BicicletaDB();
-        return $db->addGPS($id,$date,$lat,$lon);
+        return $db->addGPS($id,$date,$lat,$lon) ? success(
+            ["data" => $array[3] . $array[4] .", " .  $array[5] . $array[6],
+             "contact" => $db->getConfig(0)["telefono"]
+            ]) : false;
     }
     catch(Exception $e){
         return ["error"=> true, "exception_message" => $e->getMessage(), "error_msg" => "failed to Parse GPS" ];
