@@ -29,7 +29,7 @@ echo json_encode($response());
 
 function ParseGPS($id, $gps){
     try {
-        $array = explode($gps,",");
+        $array = explode(",",$gps);
     //create the date
     if(count($array) < 10) return ["error"=> true, "error_msg" => "Bad GPS RMC code", "array_count" => count($array), "gpscode" => $gps ];
     if($array[9] == "" ||$array[3] == "" || $array[5] == "" )  return ["error"=> true,  "error_msg" => "Empty RMC code" ];
