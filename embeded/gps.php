@@ -39,8 +39,39 @@ function ParseGPS($id, $gps){
 
 
 function error($error_msg){
-    return ["error"=> true, "error_msg" => $error_msg, "mirror" => file_get_contents('php://input'), "decoded" => json_decode(file_get_contents('php://input'))];
+    return ["error"=> true, 
+        "error_msg" => $error_msg, 
+        "json_error" => JSON_error_string(),
+        "mirror" => file_get_contents('php://input'), 
+        "decoded" => json_decode(file_get_contents('php://input'))
+    ];
 }
 function success($array){
     return array_merge(["error"=> false], $array);
+}
+
+function JSON_error_string(){
+     switch(json_last_error()) {
+        case JSON_ERROR_NONE:
+           return 'JSON_ERROR_NONE';
+        break;
+        case JSON_ERROR_DEPTH:
+            echo 'JSON_ERROR_DEPTH';
+        break;
+        case JSON_ERROR_STATE_MISMATCH:
+            echo 'JSON_ERROR_STATE_MISMATCH';
+        break;
+        case JSON_ERROR_CTRL_CHAR:
+            echo 'JSON_ERROR_CTRL_CHAR';
+        break;
+        case JSON_ERROR_SYNTAX:
+            echo 'JSON_ERROR_SYNTAX';
+        break;
+        case JSON_ERROR_UTF8:
+            echo 'JSON_ERROR_UTF8';
+        break;
+        default:
+            echo 'JSON_ERROR_UNKNOWN';
+        break;
+    }
 }
