@@ -103,7 +103,7 @@ class BicicletaDB extends DBAuth{
     public function addGPS($id, $date, $lat, $lon){
         $conn = $this->conn;
         $stmt = $conn->prepare("INSERT INTO coordinates Values (?, ?, ?, ?");
-        $stmt->bind_param("idds", $id, $lat, $lon, $date);
+        $stmt->bind_param("isss", $id, $lat, $lon, $date);
         echo "binded params";
         if(!$stmt->execute()) return false;
         return true;
