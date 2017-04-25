@@ -28,7 +28,6 @@ $response = function() use ($INPUT){
 echo json_encode($response());
 
 function ParseGPS($id, $gps){
-    return true;
     try {
         $array = explode($gps,",");
     //create the date
