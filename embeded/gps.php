@@ -17,7 +17,7 @@ Where:
      10, 11 => 003.1,W      Magnetic Variation
      *6A          The checksum data, always begins with *
 */
-
+//,021218.00,A,2040.28532,N,10322.32857,W,2.711,,250417,,,A
 $response = function() use ($INPUT){
     if(!$INPUT->contains('ID')) return error("missing parameter 'ID'");
     if(!$INPUT->contains('GPS')) return error("missing parameter 'GPS'");
@@ -36,6 +36,7 @@ function ParseGPS($id, $gps){
     $date = DateTime::createFromFormat("dmyHis",$array[9] . $array[1])->format(DateTime::ATOM);
     $lat = ($array[4]=="N" ? 1:-1) * (float)ltrim($array[3],"0");
     $lon = ($array[6]=="E" ? 1:-1) * (float)ltrim($array[5],"0");
+    echo "llegue aqui";
     $db = new BicicletaDB();
         return $db->addGPS($id,$date,$lat,$lon);
     }
