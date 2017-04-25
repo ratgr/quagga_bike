@@ -22,7 +22,8 @@ $response = function() use ($INPUT){
     if(!$INPUT->contains('ID')) return error("missing parameter 'ID'");
     if(!$INPUT->contains('GPS')) return error("missing parameter 'GPS'");
     $db = new BicicletaDB();
-    return success(["ParseGPS" => ParseGPS($INPUT->get("ID"),$INPUT->get("GPS"))]);
+    return success(["data" => ParseGPS($INPUT->get("ID"),$INPUT->get("GPS")), 
+        "contact" => $db->getConfig(0)["telefono"]]);
 };
 
 echo json_encode($response());
@@ -40,10 +41,7 @@ function ParseGPS($id, $gps){
     $lon = ($array[6]=="E" ? 1:-1) * (float)ltrim($array[5],"0");
     //echo "llegue aqui\n\r";
     $db = new BicicletaDB();
-        return $db->addGPS($id,$date,$lat,$lon) ? success(
-            ["data" => $array[3] . $array[4] .", " .  $array[5] . $array[6],
-             "contact" => $db->getConfig(0)["telefono"]
-            ]) : false;
+        return $array[3] . $array[4] .", " .  $array[5] . $array[6];
     }
     catch(Exception $e){
         return ["error"=> true, "exception_message" => $e->getMessage(), "error_msg" => "failed to Parse GPS" ];
