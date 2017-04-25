@@ -39,7 +39,7 @@ function ParseGPS($id, $gps){
 
 
 function error($error_msg){
-    return ["error"=> true, "error_msg" => $error_msg, "mirror" => file_get_contents('php://input')];
+    return ["error"=> true, "error_msg" => $error_msg, "mirror" => json_decode(file_get_contents('php://input'))];
 }
 function success($array){
     return array_merge(["error"=> false], $array);
