@@ -37,9 +37,9 @@ function ParseGPS($id, $gps){
     echo "llegue aqui" . $date;
     $lat = ($array[4]=="N" ? 1:-1) * (float)ltrim($array[3],"0");
     $lon = ($array[6]=="E" ? 1:-1) * (float)ltrim($array[5],"0");
-    echo "latitud y longitud" . $date;
+    echo "latitud y longitud: " .  $lat . ", " . $lon;
     $db = new BicicletaDB();
-    return $db->addGPS($id,$date,$lat,$lon);
+        return $db->addGPS($id,$date,$lat,$lon);
     }
     catch(Exception $e){
         return ["error"=> true, "exception_message" => $e->getMessage(), "error_msg" => "failed to Parse GPS" ];

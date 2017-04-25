@@ -104,6 +104,7 @@ class BicicletaDB extends DBAuth{
         $conn = $this->conn;
         $stmt = $conn->prepare("INSERT INTO coordinates Values (?, ?, ?, ?");
         $stmt->bind_param("idds", $id, $lat, $lon, $date);
+        echo "binded params";
         if(!$stmt->execute()) return false;
         return true;
     }
