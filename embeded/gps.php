@@ -32,6 +32,8 @@ function ParseGPS($id, $gps){
     try {
         $array = explode($gps,",");
     //create the date
+    if(count($array)< 10) return ["error"=> true, "error_msg" => "Bad GPS RMC code" ];
+    if($array[9] == "" ||$array[3] == "" || $array[5] == "" )  return ["error"=> true,  "error_msg" => "Empty RMC code" ];
     $date = DateTime::createFromFormat("DDMMYYHHmmss",$array[9] . $array[1])->format(DateTime::ATOM);
     $lat = ($array[4]=="N" ? 1:-1) * (float)ltrim($array[3]);
     $lon = ($array[6]=="E" ? 1:-1) * (float)ltrim($array[5]);
@@ -39,7 +41,7 @@ function ParseGPS($id, $gps){
     return $db->addGPS($id,$date,$lat,$lon);
     }
     catch(Exception $e){
-        return json_encode(["error"=> true, "exception_message" => $e->getMessage(), "error_msg" => "failded to Parse GPS" ]);
+        return ["error"=> true, "exception_message" => $e->getMessage(), "error_msg" => "failed to Parse GPS" ];
     }
 }
 
