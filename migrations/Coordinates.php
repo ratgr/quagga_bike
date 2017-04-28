@@ -11,7 +11,7 @@ class CoordinatesTable extends MigrationBase{
 	
 	
 	public function version(){
-		return "0.0.1";
+		return "0.0.2";
 	}
 	
 	
@@ -25,8 +25,8 @@ class CoordinatesTable extends MigrationBase{
             "CREATE TABLE coordinates 
              (  
                 id_user INT NOT NULL,
-                latitude DECIMAL NOT NULL , 
-                longitude DECIMAL NOT NULL,
+                latitude DECIMAL(64,16) NOT NULL , 
+                longitude DECIMAL(64,16) NOT NULL,
                 timestamp_create TIMESTAMP NOT NULL
                 )");
 	}
