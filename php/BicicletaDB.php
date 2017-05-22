@@ -86,6 +86,20 @@ class BicicletaDB extends DBAuth{
             return false;
         }
     }
+    public function getmode(){
+
+        $conn = $this->conn;
+        $stmt = $conn->prepare("SELECT mode FROM bicicletas WHERE usuario = 1");
+        if($stmt->execute()){
+            $stmt->bind_result($mode);
+            $stmt->fetch();
+            $stmt->close();
+            return $mode;
+        }else{
+            return false;
+        }
+    }
+
 
     public function getAlert($user_id, $start){
         $conn = $this->conn;
