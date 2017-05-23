@@ -2,19 +2,21 @@
 require_once __DIR__ . "/../php/BicicletaDB.php";
 require_once __DIR__ . "/../php/InputData.php";
 
-
-
 $response = function() use ($INPUT){
     if(!$INPUT->contains('ID')) return error("missing parameter 'ID'");
+    if(!$INPUT->contains('GPS')) return error("missing parameter 'GPS'");
+    
     $db = new BicicletaDB();
-    return success(["mode" => $db->getmode()] );
+    $result = $db->getEmergency();
+
+    if(!$result) 
+        return error('Could not get emergency contacts');
+    return success($result);
 };
 
-echo json_encode($response());
-
-
 function error($error_msg){
-    return ["error"=> true, 
+    return [
+        "error"=> true, 
         "error_msg" => $error_msg, 
         "mirror" => file_get_contents('php://input'), 
         "decoded" => json_decode(file_get_contents('php://input'))

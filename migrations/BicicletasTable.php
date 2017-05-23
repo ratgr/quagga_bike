@@ -20,8 +20,8 @@ class BicicletaTable extends MigrationBase{
 		$conn = $this->conn;
 		echo "inserting start bike" . PHP_EOL;
 		$conn->query(
-                "INSERT INTO `bicicletas` (`id`, `telefono`, `serial`, `usuario`, `mode`) 
-                VALUES (1, '3310964239', '', 1, 1)");
+                "INSERT INTO `bicicletas` (`id`, `telefono`, `serial`, `usuario`, `mode`, `emergencia_1`, `emergencia_2`) 
+                VALUES (1, '3310964239', '', 1, 1, '3310964239', '3314401933')");
 	}
 	
 	public function up(){
@@ -33,7 +33,9 @@ class BicicletaTable extends MigrationBase{
             `telefono` varchar(150) NOT NULL,
             `serial` varchar(150) NOT NULL,
             `usuario` int(11) NOT NULL,
-			`mode` int(11)
+			`mode` int(11),
+		    `emergencia_1` varchar(150),
+			`emergencia_2` varchar(150)
             ) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
 	}
 	

@@ -101,6 +101,25 @@ class BicicletaDB extends DBAuth{
             return false;
         }
     }
+    public function getEmergency($user){
+        $conn = $this->conn;
+        $stmt = $conn->prepare("SELECT emergencia_1, emergencia_2 FROM bicicletas WHERE usuario = 1");
+        if($stmt->execute()){
+            $stmt->bind_result($emergencia_1, $emergencia_2);
+            $stmt->fetch();
+            $config = array(
+                "e_contact_1" => $emergencia_1, 
+                "e_contact_2" => $emergencia_2,
+                "e_contact_3" => $emergencia_2
+            );
+            $stmt->close();
+
+            return $config;
+        }else{
+            return false;
+        }
+    }
+
 
 
     public function getAlert($user_id, $start){
