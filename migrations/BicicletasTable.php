@@ -32,8 +32,8 @@ class BicicletaTable extends MigrationBase{
             `id` int(11) NOT NULL,
             `telefono` varchar(150) NOT NULL,
             `serial` varchar(150) NOT NULL,
-            `usuario` int(11) NOT NULL
-			`mode` int(11) 
+            `usuario` int(11) NOT NULL,
+			`mode` int(11)
             ) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
 	}
 	
