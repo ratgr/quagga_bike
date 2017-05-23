@@ -2,6 +2,8 @@
 require_once __DIR__ . "/../php/BicicletaDB.php";
 require_once __DIR__ . "/../php/InputData.php";
 
+echo "entre!!";
+
 $response = function() use ($INPUT){
     if(!$INPUT->contains('ID')) return error("missing parameter 'ID'");
     $db = new BicicletaDB();
