@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <script src="lib/Chart.bundle.js"></script>
+    <script src="lib/jquery.js"></script>
+    <canvas id="updating-chart" width="500" height="300"></canvas>
+    <button id="add-random"></button>
+
+</body>
+<script>
+    $(Bicicleta);
+    function Bicicleta() {
+
+        var ctx = document.getElementById('updating-chart').getContext('2d');
+        $("#add-random").click(function(){
+            $.post("embededsensors.php",{
+                acc: [Math.random() * 200 - 100,Math.random() * 200 - 100,Math.random() * 200 - 100],
+                gyro: [Math.random() * 200 - 100,Math.random() * 200 - 100,Math.random() * 200 - 100],
+            },function(data){
+                console.log("on random insert data:", data);
+                //getData()
+            })
+        })
+        var d = new Date();
+        var yesterday = new Date();
+        yesterday.setDate(d.getDate() - 1);
+        //obtener datos desde ayer
+        var last_time = yesterday.toISOString();
+        getData()
+
+        var startingData = {
+            labels: [],
+            datasets: [
+                {
+                    label: "acelerometroX",   
+                    backgroundColor: "rgba(220,0,0,0.2)",
+                    borderColor: "rgba(220,0,0,1)",
+                    data: []
+                },
+                {
+                    label: "acelerometroY",
+                    backgroundColor: "rgba(0,220,0,0.2)",
+                    borderColor: "rgba(0,220,0,1)",
+                    data: []
+                },
+                {
+                    label: "acelerometroZ",
+                    backgroundColor: "rgba(0,0,220,0.2)",
+                    borderColor: "rgba(0,0,220,1)",
+                    data: []
+                },
+                {
+                    label: "acelerometro",   
+                    backgroundColor: "rgba(0,0,0,0)",
+                    borderColor: "rgba(0,0,0,1)",
+                    data: []
+                },
+            ]
+        };
+        var myLiveChart = new Chart(ctx, {
+            data: startingData,
+            type: "line",
+        });
+ 
+        function getData() {
+            $.get("graph.php?start=" + last_time, function (data) {
+                console.log("date:" , last_time);
+                 console.log("error on data:" , data);
+                data = JSON.parse(data);
+                if(data.error == true) 
+                    console.log("error on data:" , data);
+                console.log("data.length:" , data);
+                for(var i = 0; i < data.points.length; i++){
+                    var ds = myLiveChart.data.datasets;
+                    var p =data.points[i];
+                    myLiveChart.data.labels.push(data.points[i].time_stamp);
+                    ds[0].data.push(data.points[i].a_x);
+                    ds[1].data.push(data.points[i].a_y);
+                    ds[2].data.push(data.points[i].a_z);
+                    //console.log("_r :" , p.a_x );
+                    var r = Math.sqrt( p.a_x * p.a_x + p.a_y * p.a_y + p.a_z * p.a_z);
+                    //console.log("r :" , r);
+                    ds[3].data.push(r);
+                    last_time = data.points[i].now;
+                    // myLiveChart.data.datasets[3].data.push(data.points[i].g_x);
+                    // myLiveChart.data.datasets[4].data.push(data.points[i].g_y);
+                    // myLiveChart.data.datasets[5].data.push(data.points[i].g_z);
+                    
+                }
+                myLiveChart.update();
+               
+            })
+        }
+        setInterval(function(){getData();},1000)
+
+    }
+    function example() {
+        var canvas = document.getElementById('updating-chart'),
+            ctx = canvas.getContext('2d'),
+            startingData = {
+                labels: [1, 2, 3, 4, 5, 6, 7],
+                datasets: [
+                    {
+                        fillColor: "rgba(220,220,220,0.2)",
+                        strokeColor: "rgba(220,220,220,1)",
+                        pointColor: "rgba(220,220,220,1)",
+                        pointStrokeColor: "#fff",
+                        data: [65, 59, 80, 81, 56, 55, 40]
+                    },
+                    {
+                        fillColor: "rgba(151,187,205,0.2)",
+                        strokeColor: "rgba(151,187,205,1)",
+                        pointColor: "rgba(151,187,205,1)",
+                        pointStrokeColor: "#fff",
+                        data: [28, 48, 40, 19, 86, 27, 90]
+                    }
+                ]
+            },
+            latestLabel = startingData.labels[6];
+
+        // Reduce the animation steps for demo clarity.
+        var myLiveChart = new Chart(ctx, {
+            data: startingData,
+            type: "line",
+        });
+        setInterval(function () {
+            // Add two random numbers for each dataset
+            //myLiveChart.addData([Math.random() * 100, Math.random() * 100], ++latestLabel);
+            myLiveChart.data.labels.push(++latestLabel);
+            myLiveChart.data.datasets[0].data.push(Math.random() * 100);
+            myLiveChart.data.datasets[1].data.push(Math.random() * 100);
+         
+        }, 5000);
+    }
+
+</script>
+
+
+</html>
