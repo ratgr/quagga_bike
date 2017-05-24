@@ -17,15 +17,7 @@
     function Bicicleta() {
 
         var ctx = document.getElementById('updating-chart').getContext('2d');
-        $("#add-random").click(function(){
-            $.post("embededsensors.php",{
-                acc: [Math.random() * 200 - 100,Math.random() * 200 - 100,Math.random() * 200 - 100],
-                gyro: [Math.random() * 200 - 100,Math.random() * 200 - 100,Math.random() * 200 - 100],
-            },function(data){
-                console.log("on random insert data:", data);
-                //getData()
-            })
-        })
+       
         var d = new Date();
         var yesterday = new Date();
         yesterday.setDate(d.getDate() - 1);
@@ -34,13 +26,13 @@
         getData()
 
         var startingData = {
-            labels: [],
+            labels: ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"],
             datasets: [
                 {
-                    label: "Calorias",   
+                    label: "Calorias Hoy",   
                     backgroundColor: "rgba(220,0,0,0.2)",
                     borderColor: "rgba(220,0,0,1)",
-                    data: [700,200,300,400]
+                    data: [700,200,300,400,100,255]
                 },
             ]
         };
@@ -49,36 +41,6 @@
             type: "line",
         });
  
-        function getData() {
-            $.get("graph.php?start=" + last_time, function (data) {
-                console.log("date:" , last_time);
-                 console.log("error on data:" , data);
-                data = JSON.parse(data);
-                if(data.error == true) 
-                    console.log("error on data:" , data);
-                console.log("data.length:" , data);
-                for(var i = 0; i < data.points.length; i++){
-                    var ds = myLiveChart.data.datasets;
-                    var p =data.points[i];
-                    myLiveChart.data.labels.push(data.points[i].time_stamp);
-                    ds[0].data.push(data.points[i].a_x);
-                    ds[1].data.push(data.points[i].a_y);
-                    ds[2].data.push(data.points[i].a_z);
-                    //console.log("_r :" , p.a_x );
-                    var r = Math.sqrt( p.a_x * p.a_x + p.a_y * p.a_y + p.a_z * p.a_z);
-                    //console.log("r :" , r);
-                    ds[3].data.push(r);
-                    last_time = data.points[i].now;
-                    // myLiveChart.data.datasets[3].data.push(data.points[i].g_x);
-                    // myLiveChart.data.datasets[4].data.push(data.points[i].g_y);
-                    // myLiveChart.data.datasets[5].data.push(data.points[i].g_z);
-                    
-                }
-                myLiveChart.update();
-               
-            })
-        }
-        setInterval(function(){getData();},1000)
 
     }
     function example() {
