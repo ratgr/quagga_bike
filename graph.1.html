@@ -23,10 +23,10 @@
         yesterday.setDate(d.getDate() - 1);
         //obtener datos desde ayer
         var last_time = yesterday.toISOString();
-        getData()
+        //getData()
 
         var startingData = {
-            labels: [],//"Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"],
+            labels: ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"],
             datasets: [
                 {
                     label: "Calorias Hoy",   
@@ -40,9 +40,6 @@
             data: startingData,
             type: "line",
         });
-
-        //sadcom
- 
 
     }
     function example() {
