@@ -91,6 +91,23 @@ class BicicletaDB extends DBAuth{
             return false;
         }
     }
+    public function getMode($user){
+        $conn = $this->conn;
+        $stmt = $conn->prepare("SELECT mode FROM bicicletas WHERE usuario = 1");
+        if($stmt->execute()){
+            $stmt->bind_result($b_telefono, $b_serial, $b_usuario, $b_mode);
+            $stmt->fetch();
+            $config = array(
+                "mode"  => $b_mode
+            );
+            $stmt->close();
+
+            return $config;
+        }else{
+            return false;
+        }
+    }
+    
     public function setMode($mode)
     {
         $conn = $this->conn;
