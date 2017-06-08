@@ -7,12 +7,15 @@ $response = function() use ($INPUT){
     if(!$INPUT->contains('GPS')) return error("missing parameter 'GPS'");
     
     $db = new BicicletaDB();
+
     $result = $db->getEmergency();
 
     if(!$result) 
         return error('Could not get emergency contacts');
     return success($result);
 };
+
+echo json_encode($response());
 
 function error($error_msg){
     return [

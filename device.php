@@ -24,9 +24,16 @@
             }
             case "set_telefono":{
                 if(!$INPUT->contains('telefono')) 
-                    return setError("required parameter 'telefono' is missing" . $INPUT->get("telefono"));
+                    return setError("required parameter 'telefono' is missing" );
                 return setValue(array(
                     "success" => $db->setNumber($INPUT->get('telefono'))
+                ));
+            }
+            case "set_mode":{
+                if(!$INPUT->contains('mode')) 
+                    return setError("required parameter 'mode' is missing");
+                 return setValue(array(
+                    "success" => $db->setMode($INPUT->get('mode'))
                 ));
             }
             default:

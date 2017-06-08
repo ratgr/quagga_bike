@@ -74,11 +74,16 @@ class BicicletaDB extends DBAuth{
     }
     public function getConfig($user){
         $conn = $this->conn;
-        $stmt = $conn->prepare("SELECT telefono, serial, usuario FROM bicicletas WHERE usuario = 1");
+        $stmt = $conn->prepare("SELECT telefono, serial, usuario, mode FROM bicicletas WHERE usuario = 1");
         if($stmt->execute()){
-            $stmt->bind_result($b_telefono, $b_serial, $b_usuario);
+            $stmt->bind_result($b_telefono, $b_serial, $b_usuario, $b_mode);
             $stmt->fetch();
-            $config = array("telefono" => $b_telefono, "serial" => $b_serial, "usuario" => $b_usuario);
+            $config = array(
+                "telefono" => $b_telefono, 
+                "serial"   => $b_serial, 
+                "usuario"  => $b_usuario,
+                "mode"     => $b_mode
+            );
             $stmt->close();
 
             return $config;
@@ -86,20 +91,13 @@ class BicicletaDB extends DBAuth{
             return false;
         }
     }
-    public function getmode(){
-
+    public function setMode($mode)
+    {
         $conn = $this->conn;
-        $stmt = $conn->prepare("SELECT mode FROM bicicletas WHERE usuario = 1");
-         //echo "before execution";
-        if($stmt->execute()){
-           // echo "executed";
-            $stmt->bind_result($mode);
-            $stmt->fetch();
-            return $mode;
-            
-        }else{
-            return false;
-        }
+        $stmt = $conn->prepare("UPDATE bicicletas SET mode=? WHERE usuario = 1");
+        $stmt->bind_param("s", $mode);
+        if($stmt->execute()) return true;
+        else return false;
     }
     public function getEmergency($user){
         $conn = $this->conn;
