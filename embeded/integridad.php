@@ -10,6 +10,8 @@ $response = function() use ($INPUT){
     return success(["emergencia" => 1]);
 };
 
+echo json_encode($response());
+
 function error($error_msg){
     return [
         "error"=> true, 
