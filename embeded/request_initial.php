@@ -7,7 +7,7 @@ require_once __DIR__ . "/../php/InputData.php";
 $response = function() use ($INPUT){
     if(!$INPUT->contains('ID')) return error("missing parameter 'ID'");
     $db = new BicicletaDB();
-    $v = $db->getConfig(1);
+    $v = $db->getMode(1);
     if($v == false) 
         return error("Query Failed to execute");
     return  success($v);
