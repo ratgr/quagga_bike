@@ -21,7 +21,7 @@ class BicicletaTable extends MigrationBase{
 		echo "inserting start bike" . PHP_EOL;
 		$conn->query(
                 "INSERT INTO `bicicletas` (`id`, `telefono`, `serial`, `usuario`, `mode`, `emergencia_1`, `emergencia_2`, `msg` ) 
-                VALUES (1, '3310964239', '', 1, 1, '3310964239', '3314401933')");
+                VALUES (1, '3310964239', '', 1, 1, '3310964239', '3314401933', 1)");
 	}
 	
 	public function up(){
