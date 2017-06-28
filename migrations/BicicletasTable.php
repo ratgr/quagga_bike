@@ -12,7 +12,7 @@ class BicicletaTable extends MigrationBase{
 	
 	public function version(){
 		
-		return "0.0.0";
+		return "0.0.1";
 	}
 	
 	
@@ -20,7 +20,7 @@ class BicicletaTable extends MigrationBase{
 		$conn = $this->conn;
 		echo "inserting start bike" . PHP_EOL;
 		$conn->query(
-                "INSERT INTO `bicicletas` (`id`, `telefono`, `serial`, `usuario`, `mode`, `emergencia_1`, `emergencia_2`) 
+                "INSERT INTO `bicicletas` (`id`, `telefono`, `serial`, `usuario`, `mode`, `emergencia_1`, `emergencia_2`, `msg` ) 
                 VALUES (1, '3310964239', '', 1, 1, '3310964239', '3314401933')");
 	}
 	
