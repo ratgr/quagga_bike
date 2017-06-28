@@ -95,7 +95,7 @@ class BicicletaDB extends DBAuth{
         $conn = $this->conn;
         $stmt = $conn->prepare("SELECT mode, msg FROM bicicletas WHERE usuario = 1");
         if($stmt->execute()){
-            $stmt->bind_result($b_mode);
+            $stmt->bind_result($b_mode,$b_msg);
             $stmt->fetch();
             $config = array(
                 "mode"  => $b_mode,
