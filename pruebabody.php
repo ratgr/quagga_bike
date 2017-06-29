@@ -11,7 +11,7 @@
        
        $response["error"] = false;
        $response["data"] = array("ID" => $INPUT->get("ID"));
-       $response["contact"] =  $config = $db->getConfig(0);//["telefono"];
+       $response["contact"] =  $config = $db->getConfig(0)["telefono"];
     } else {
         // required post params is missing
         $response["error"] = TRUE;

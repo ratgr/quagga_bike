@@ -74,7 +74,7 @@ class BicicletaDB extends DBAuth{
     }
     public function getConfig($user){
         $conn = $this->conn;
-        $stmt = $conn->prepare("SELECT telefono serial, usuario, mode FROM bicicletas WHERE usuario = 1");
+        $stmt = $conn->prepare("SELECT telefono, serial, usuario, mode FROM bicicletas WHERE usuario = 1");
         if($stmt->execute()){
             $stmt->bind_result($b_telefono, $b_serial, $b_usuario, $b_mode);
             $stmt->fetch();
