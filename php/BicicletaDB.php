@@ -164,7 +164,7 @@ class BicicletaDB extends DBAuth{
     public function unsetEmergency()
     {
         $conn = $this->conn;
-        $stmt = $conn->prepare("UPDATE bicicletas SET emergencia=1 WHERE usuario = 1");
+        $stmt = $conn->prepare("UPDATE bicicletas SET emergencia=0 WHERE usuario = 1");
         if(!$stmt->execute()) return false;
         return true;
     }
