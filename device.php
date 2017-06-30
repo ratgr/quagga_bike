@@ -56,6 +56,12 @@
                     "success" => $db->setMode($INPUT->get('mode'))
                 ));
             }
+            case "get_mode":{
+                $config = $db->getMode(1);
+                 if($config == false) 
+                    return setError("query failed!");
+                return setValue($config);
+            }
             default:
                 return setError("unknown or empty function");
         }
