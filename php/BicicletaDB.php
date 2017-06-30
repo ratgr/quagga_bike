@@ -150,12 +150,13 @@ class BicicletaDB extends DBAuth{
         
         if(!$stmt->execute())     
             return false;
-            
+
         $stmt->bind_result($b_emergencia);
         $stmt->fetch();
         $config = array(
             "value"  => $b_emergencia,
         );
+        
         return $config;
         
        
