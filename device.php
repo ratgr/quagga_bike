@@ -22,7 +22,7 @@
                 if($config == false) return setError("query failed!");
                 return setValue(array("config" => $config));
             }
-            case "get_Emergency" : {
+            case "get_emergency" : {
                 //checar usuario
                 $config = $db->getEmergency();
                 if($config == false) 
