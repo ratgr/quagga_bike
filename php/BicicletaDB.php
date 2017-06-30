@@ -148,16 +148,17 @@ class BicicletaDB extends DBAuth{
         $conn = $this->conn;
         $stmt = $conn->prepare("SELECT emergencia FROM bicicletas WHERE usuario = 1 ");
         
-        if(!$stmt->execute()) {
-            $stmt->bind_result($b_emergencia);
-            $stmt->fetch();
-            $config = array(
-                "value"  => $b_emergencia,
-            );
-            return $config;
-        }
-           
-        return true;
+        if(!$stmt->execute())     
+            return false;
+            
+        $stmt->bind_result($b_emergencia);
+        $stmt->fetch();
+        $config = array(
+            "value"  => $b_emergencia,
+        );
+        return $config;
+        
+       
     }
     public function unsetEmergency()
     {
