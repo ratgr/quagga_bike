@@ -23,7 +23,6 @@
                 return setValue(array("config" => $config));
             }
             case "get_emergency" : {
-                //checar usuario
                 $config = $db->getEmergency();
                 if($config == false) 
                     return setError("query failed!");
