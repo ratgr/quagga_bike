@@ -33,7 +33,14 @@
                 $config = $db->unsetEmergency();
                 if($config == false) 
                     return setError("query failed!");
-                return setValue(array("unset" => 1));
+                return setValue(array("unset" => $config));
+            }
+             case "set_emergency" :{
+                
+                $config = $db->setEmergency();
+                if($config == false) 
+                    return setError("query failed!");
+                return setValue(array("unset" => $config));
             }
             case "set_telefono":{
                 if(!$INPUT->contains('telefono')) 
