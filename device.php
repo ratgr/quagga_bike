@@ -27,7 +27,7 @@
                 $config = $db->getEmergency();
                 if($config == false) 
                     return setError("query failed!");
-                return setValue([]);
+                return setValue();
             }
             case "unset_Emergency" :{
                 
