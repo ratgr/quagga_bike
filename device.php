@@ -22,6 +22,20 @@
                 if($config == false) return setError("query failed!");
                 return setValue(array("config" => $config));
             }
+            case "get_Emergency" : {
+                //checar usuario
+                $config = $db->getEmergency();
+                if($config == false) 
+                    return setError("query failed!");
+                return setValue($config);
+            }
+            case "unset_Emergency" :{
+                
+                $config = $db->unsetEmergency();
+                if($config == false) 
+                    return setError("query failed!");
+                return setValue(array("unset" => 1));
+            }
             case "set_telefono":{
                 if(!$INPUT->contains('telefono')) 
                     return setError("required parameter 'telefono' is missing" );

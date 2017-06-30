@@ -117,7 +117,7 @@ class BicicletaDB extends DBAuth{
         if($stmt->execute()) return true;
         else return false;
     }
-    public function getEmergency($user){
+    public function getEmergencyContacts($user){
         $conn = $this->conn;
         $stmt = $conn->prepare("SELECT emergencia_1, emergencia_2 FROM bicicletas WHERE usuario = 1");
         if($stmt->execute()){
@@ -136,7 +136,36 @@ class BicicletaDB extends DBAuth{
         }
     }
 
-
+    public function setEmergency()
+    {
+        $conn = $this->conn;
+        $stmt = $conn->prepare("UPDATE bicicletas SET emergencia=1 WHERE usuario = 1");
+        if(!$stmt->execute()) return false;
+        return true;
+    }
+    public function getEmergency()
+    {
+        $conn = $this->conn;
+        $stmt = $conn->prepare("SELECT emergencia FROM bicicletas WHERE usuario = 1 ");
+        
+        if(!$stmt->execute()) {
+            $stmt->bind_result($b_emergencia);
+            $stmt->fetch();
+            $config = array(
+                "value"  => $b_emergencia,
+            );
+            return $config;
+        }
+           
+        return true;
+    }
+    public function unsetEmergency()
+    {
+        $conn = $this->conn;
+        $stmt = $conn->prepare("UPDATE bicicletas SET emergencia=1 WHERE usuario = 0");
+        if(!$stmt->execute()) return false;
+        return true;
+    }
 
     public function getAlert($user_id, $start){
         $conn = $this->conn;
@@ -194,6 +223,9 @@ class BicicletaDB extends DBAuth{
         $stmt->bind_result($now);
         return  $now;
     }
+
+    
+
     public function setNumber($number)
     {
         $conn = $this->conn;

@@ -8,10 +8,16 @@ $response = function() use ($INPUT){
     
     $db = new BicicletaDB();
 
-    $result = $db->getEmergency();
+    $result = $db->getEmergencyContacts();
+    
 
     if(!$result) 
         return error('Could not get emergency contacts');
+    $setted = $db->setEmergency();
+
+    if(!$setted) 
+        return error('Could not set emergency mode');
+
     return success($result);
 };
 
